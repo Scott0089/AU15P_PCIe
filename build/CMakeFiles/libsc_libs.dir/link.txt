@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblibsc_libs.a CMakeFiles/libsc_libs.dir/sc_libs/sc_io.c.o
-/usr/bin/ranlib liblibsc_libs.a
