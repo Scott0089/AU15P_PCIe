@@ -1,0 +1,8 @@
+/home/test/Documents/AU15P_PCIe/build/CMakeFiles/libsc_libs.dir
+/home/test/Documents/AU15P_PCIe/build/CMakeFiles/main.dir
+/home/test/Documents/AU15P_PCIe/build/CMakeFiles/distclean.dir
+/home/test/Documents/AU15P_PCIe/build/CMakeFiles/edit_cache.dir
+/home/test/Documents/AU15P_PCIe/build/CMakeFiles/rebuild_cache.dir
+/home/test/Documents/AU15P_PCIe/build/xlnx_libs/CMakeFiles/xlnx_libs.dir
+/home/test/Documents/AU15P_PCIe/build/xlnx_libs/CMakeFiles/edit_cache.dir
+/home/test/Documents/AU15P_PCIe/build/xlnx_libs/CMakeFiles/rebuild_cache.dir

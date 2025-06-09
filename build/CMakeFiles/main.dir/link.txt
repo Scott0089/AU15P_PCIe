@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -Wextra -g -O2 -fPIC -O3 -DNDEBUG -rdynamic CMakeFiles/main.dir/main.c.o -o bin/main  xlnx_libs/libxlnx_libs.a -lm -lpthread liblibsc_libs.a xlnx_libs/libxlnx_libs.a -lm 
