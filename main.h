@@ -12,9 +12,12 @@
 //#define SDT
 
 #include "sc_io.h"
+
 #include "xsysmon.h"
 #include "xgpio.h"
 #include "xtmrctr.h"
+#include "xv_tpg.h"
+#include "xvidc.h"
 
 #define TARGET_PHYS_ADDR 0x40000000 
 

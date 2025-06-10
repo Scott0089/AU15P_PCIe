@@ -20,7 +20,7 @@
 
 /******************************************************************/
 
-#define XPAR_XGPIO_NUM_INSTANCES 2
+#define XPAR_XGPIO_NUM_INSTANCES 3
 
 /* Definitions for peripheral AXI_GPIO_0 */
 #define XPAR_AXI_GPIO_0_COMPATIBLE "xlnx,axi-gpio-2.0"
@@ -54,6 +54,22 @@
 #define XPAR_XGPIO_1_INTERRUPT_PRESENT 0x0
 #define XPAR_XGPIO_1_IS_DUAL 0x1
 
+/* Definitions for peripheral TPG_RESET */
+#define XPAR_AXI_TPG_RESET_COMPATIBLE "xlnx,axi-gpio-2.0"
+#define XPAR_AXI_TPG_RESET_BASEADDR 0x40050000
+#define XPAR_AXI_TPG_RESET_HIGHADDR 0x4005ffff
+#define XPAR_AXI_TPG_RESET_INTERRUPT_PRESENT 0x0
+#define XPAR_AXI_TPG_RESET_IS_DUAL 0x0
+#define XPAR_AXI_TPG_RESET_GPIO_WIDTH 0x1
+
+/* Canonical definitions for peripheral TPG_RESET */
+#define XPAR_XTPG_RESET_BASEADDR 0x40050000
+#define XPAR_XTPG_RESET_HIGHADDR 0x4005ffff
+#define XPAR_XTPG_RESET_COMPATIBLE "xlnx,axi-gpio-2.0"
+#define XPAR_XTPG_RESET_GPIO_WIDTH 0x1
+#define XPAR_XTPG_RESET_INTERRUPT_PRESENT 0x0
+#define XPAR_XTPG_RESET_IS_DUAL 0x0
+
 #define XPAR_XSYSMON_NUM_INSTANCES 1
 
 /* Definitions for peripheral SYSTEM_MANAGEMENT_WIZ_0 */
@@ -83,5 +99,43 @@
 #define XPAR_XTMRCTR_0_HIGHADDR 0x4002ffff
 #define XPAR_XTMRCTR_0_COMPATIBLE "xlnx,axi-timer-2.0"
 #define XPAR_XTMRCTR_0_CLOCK_FREQUENCY 0x5f5e100
+
+#define XPAR_XV_TPG_NUM_INSTANCES 1
+
+/* Definitions for peripheral V_TPG_0 */
+#define XPAR_V_TPG_0_COMPATIBLE "xlnx,v-tpg-8.2"
+#define XPAR_V_TPG_0_BASEADDR 0x40060000
+#define XPAR_V_TPG_0_HIGHADDR 0x4006ffff
+#define XPAR_V_TPG_0_AXI4S_SLAVE 0x0
+#define XPAR_V_TPG_0_SAMPLES_PER_CLOCK 0x2
+#define XPAR_V_TPG_0_NUM_VIDEO_COMPONENTS 0x3
+#define XPAR_V_TPG_0_MAX_COLS 0x1000
+#define XPAR_V_TPG_0_MAX_ROWS 0x870
+#define XPAR_V_TPG_0_MAX_DATA_WIDTH 0xa
+#define XPAR_V_TPG_0_SOLID_COLOR 0x1
+#define XPAR_V_TPG_0_RAMP 0x1
+#define XPAR_V_TPG_0_COLOR_BAR 0x1
+#define XPAR_V_TPG_0_DISPLAY_PORT 0x1
+#define XPAR_V_TPG_0_COLOR_SWEEP 0x1
+#define XPAR_V_TPG_0_ZONE_PLATE 0x1
+#define XPAR_V_TPG_0_FOREGROUND 0x1
+
+/* Canonical definitions for peripheral V_TPG_0 */
+#define XPAR_XV_TPG_0_BASEADDR 0x40060000
+#define XPAR_XV_TPG_0_HIGHADDR 0x4006ffff
+#define XPAR_XV_TPG_0_AXI4S_SLAVE 0x0
+#define XPAR_XV_TPG_0_COMPATIBLE "xlnx,v-tpg-8.2"
+#define XPAR_XV_TPG_0_COLOR_BAR 0x1
+#define XPAR_XV_TPG_0_COLOR_SWEEP 0x1
+#define XPAR_XV_TPG_0_DISPLAY_PORT 0x1
+#define XPAR_XV_TPG_0_FOREGROUND 0x1
+#define XPAR_XV_TPG_0_MAX_COLS 0x1000
+#define XPAR_XV_TPG_0_MAX_ROWS 0x870
+#define XPAR_XV_TPG_0_MAX_DATA_WIDTH 0xa
+#define XPAR_XV_TPG_0_NUM_VIDEO_COMPONENTS 0x3
+#define XPAR_XV_TPG_0_RAMP 0x1
+#define XPAR_XV_TPG_0_SAMPLES_PER_CLOCK 0x2
+#define XPAR_XV_TPG_0_SOLID_COLOR 0x1
+#define XPAR_XV_TPG_0_ZONE_PLATE 0x1
 
 #endif  /* end of protection macro */

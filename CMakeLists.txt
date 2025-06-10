@@ -37,6 +37,8 @@ include_directories(
     xlnx_libs/hw_config
     xlnx_libs/tmrctr
     xlnx_libs/sysmon
+    xlnx_libs/v_tpg
+    xlnx_libs/video_common
 )
 
 # add_library(xdma STATIC ${XDMA_SRCS})

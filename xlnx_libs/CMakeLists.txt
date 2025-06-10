@@ -7,6 +7,8 @@ file(GLOB_RECURSE XLNX_LIB_SRC
     gpio/*.c
     standalone/*.c
     sysmon/*.c
+    v_tpg/*.c
+    video_common/*.c
 )
 
 #define library 
@@ -24,6 +26,8 @@ target_include_directories(xlnx_libs PUBLIC
     hw_config
     tmrctr
     sysmon
+    v_tpg
+    video_common
 )
 
 message(STATUS "SC_LIBS_SRCS = ${SC_LIBS_SRCS}")

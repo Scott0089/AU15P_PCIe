@@ -103,7 +103,7 @@ int main()
     }
 
     XTmrCtr_SetResetValue(&tmrInst, 0, (u32)-50000000);
-    XTmrCtr_SetResetValue(&tmrInst, 1, (u32)-5000000);
+    XTmrCtr_SetResetValue(&tmrInst, 1, (u32)-7500000);
     XTmrCtr_Start(&tmrInst, 0);
     XTmrCtr_Start(&tmrInst, 1);
 
@@ -157,18 +157,7 @@ int main()
             write_buff[0] = (read_buff[0] == 0x01) ? 0x07: read_buff[0] - 1;
             XGpio_DiscreteWrite(&gpioInst[1], 0x01, write_buff[0]);
         }
-
-
-
     } 
-
-    while(1)
-    {
-        XGpio_DiscreteWrite(&gpioInst[1], 0x01, 0xF);
-        sleep(1);
-        XGpio_DiscreteWrite(&gpioInst[1], 0x01, 0x0);
-        sleep(1);
-    }
   
     printf("\nEverything done! \r\n Exiting... \r\n");
 
