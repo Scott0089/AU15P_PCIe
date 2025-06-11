@@ -55,8 +55,8 @@ SYSMON_Data xadcInst;
 
 static inline uint8_t convert_10bit_to_8bit(uint16_t val10)
 {
-    return ((val10 * 255) / 1023);
-    //return val10 >> 2;
+    //return ((val10 * 255) / 1023);
+    return val10 >> 2;
 }
 
 int tpg_reset()
@@ -95,7 +95,7 @@ int tpg()
     XV_tpg_Set_maskId(&tpgInst, 0);
     //XV_tpg_Set_motionSpeed(&tpgInst, 5);
     //XV_tpg_Set_motionEn(&tpgInst, 1);
-    XV_tpg_Set_bckgndId(&tpgInst, XTPG_BKGND_COLOR_BARS);
+    XV_tpg_Set_bckgndId(&tpgInst, XTPG_BKGND_SOLID_GREEN);
 
     /*
     XV_tpg_Set_boxColorB(&tpgInst, 0xFF);
@@ -117,11 +117,6 @@ int tpg()
     // printf("Resetting TPG! \r\n");
     // printf("Done resetting TPG\r\n");
     // while(!XV_tpg_IsIdle(&tpgInst));
-
-    while(1)
-    {
-        
-    }
 
     return XST_SUCCESS;
 }
@@ -498,30 +493,36 @@ int streaming3() {
                     uint16_t g10_2 = pix2 & 0x3FF;
 
                     if (out_col < FRAME_WIDTH) {
-                        //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = g10_1;
-                        //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = b10_1;
-                        //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = r10_1;
+                        /*
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = b10_1;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = g10_1;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = r10_1;
+                        */
                         
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = convert_10bit_to_8bit(g10_1);
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = convert_10bit_to_8bit(b10_1);
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = convert_10bit_to_8bit(b10_1);
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = convert_10bit_to_8bit(g10_1);
                         output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = convert_10bit_to_8bit(r10_1);
-
+                        
                     }
                     out_col++;
 
                     if (out_col < FRAME_WIDTH) {
-                        //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = g10_2;
-                        //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = b10_2;
-                        //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = r10_2;
-
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = convert_10bit_to_8bit(g10_2);
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = convert_10bit_to_8bit(b10_2);
+                        /*
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = b10_2;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = g10_2;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = r10_2;
+                        */
+                        
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = convert_10bit_to_8bit(b10_2);
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = convert_10bit_to_8bit(g10_2);
                         output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = convert_10bit_to_8bit(r10_2);
+                        
                     }
                     out_col++;
                 }
+
             }
-            
+
         }
         (*frame_counter)++; // Signal new frame is ready
     }
