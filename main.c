@@ -93,17 +93,17 @@ int tpg()
     XV_tpg_Set_width(&tpgInst, FRAME_WIDTH);
     XV_tpg_Set_colorFormat(&tpgInst, XVIDC_CSF_RGB);
     XV_tpg_Set_maskId(&tpgInst, 0);
-    //XV_tpg_Set_motionSpeed(&tpgInst, 5);
-    //XV_tpg_Set_motionEn(&tpgInst, 1);
+    XV_tpg_Set_motionSpeed(&tpgInst, 5);
+    XV_tpg_Set_motionEn(&tpgInst, 1);
     XV_tpg_Set_bckgndId(&tpgInst, XTPG_BKGND_SOLID_GREEN);
 
-    /*
+    
     XV_tpg_Set_boxColorB(&tpgInst, 0xFF);
-    XV_tpg_Set_boxColorR(&tpgInst, 0xFF);
-    XV_tpg_Set_boxColorG(&tpgInst, 0xFF);
+    XV_tpg_Set_boxColorR(&tpgInst, 0x00);
+    XV_tpg_Set_boxColorG(&tpgInst, 0x00);
     XV_tpg_Set_boxSize(&tpgInst, 50);
-    */
-    XV_tpg_Set_ovrlayId(&tpgInst, 0x00);
+    
+    XV_tpg_Set_ovrlayId(&tpgInst, 0x01);
 
     printf("Finished Config\r\n");
 
@@ -220,17 +220,17 @@ int streaming2() { //This is all ChatGPT. Need to reverse engineer this whole sh
 
                     uint32_t pix1 = (uint32_t)((word) & 0x3FFFFFFF);
                     uint16_t g10_1 = pix1 & 0x3FF;
-                    uint16_t r10_1 = (pix1 >> 10) & 0x3FF;
-                    uint16_t b10_1 = (pix1 >> 20) & 0x3FF;
+                    uint16_t b10_1 = (pix1 >> 10) & 0x3FF;
+                    uint16_t r10_1 = (pix1 >> 20) & 0x3FF;
 
                     if (out_col < FRAME_WIDTH) {
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = 0;
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = 0;
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = 0;
 
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = g10_1;
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = r10_1;
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = b10_1;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = b10_1;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = g10_1;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = r10_1;
 
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = convert_10bit_to_8bit(b10_1);
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = convert_10bit_to_8bit(g10_1);
@@ -240,17 +240,17 @@ int streaming2() { //This is all ChatGPT. Need to reverse engineer this whole sh
 
                     uint32_t pix2 = (uint32_t)((word >> 32) & 0x3FFFFFFF);
                     uint16_t g10_2 = pix2 & 0x3FF;
-                    uint16_t r10_2 = (pix2 >> 10) & 0x3FF;
-                    uint16_t b10_2 = (pix2 >> 20) & 0x3FF;
+                    uint16_t b10_2 = (pix2 >> 10) & 0x3FF;
+                    uint16_t r10_2 = (pix2 >> 20) & 0x3FF;
 
                     if (out_col < FRAME_WIDTH) {
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = 0;
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = 0;
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = 0;
 
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = g10_2;
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = r10_2;
-                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = b10_2;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = b10_2;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = g10_2;
+                        output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 2] = r10_2;
 
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 0] = convert_10bit_to_8bit(b10_2);
                         //output_buffer[(row * FRAME_WIDTH + out_col) * 3 + 1] = convert_10bit_to_8bit(g10_2);
@@ -413,6 +413,7 @@ int streaming3() {
 
     // Set shared memory size (frame buffer + control integer)
     size_t shm_size = (sizeof(uint32_t) + FRAME_SIZE);
+    //size_t shm_size = FRAME_SIZE;
     if (ftruncate(shm_fd, shm_size) == -1) {
         perror("ftruncate");
         close(shm_fd);
@@ -430,6 +431,7 @@ int streaming3() {
 
     uint32_t *frame_counter = (uint32_t *)shm_ptr;
     uint8_t *output_buffer = shm_ptr + sizeof(uint32_t);
+    //uint8_t *output_buffer = shm_ptr;
 
     // Open DMA device
     int fd_read = open("/dev/xdma0_c2h_0", O_RDONLY);
@@ -481,8 +483,8 @@ int streaming3() {
                 uint64_t words[] = {word1, word2, word3, word4};
 
                 for (int i = 0; i < 4; i++) {
-                    uint32_t pix1 = (uint32_t)((words[i]) & 0x3FFFFFFF);
-                    uint32_t pix2 = (uint32_t)((words[i] >> 30) & 0x3FFFFFFF);
+                    uint32_t pix1 = (uint32_t)((words[i]) & (0x3FFFFFFF));
+                    uint32_t pix2 = (uint32_t)((words[i] >> 30) & (0x3FFFFFFF));
 
                     uint16_t r10_1 = (pix1 >> 20) & 0x3FF;
                     uint16_t b10_1 = (pix1 >> 10) & 0x3FF;
@@ -604,7 +606,7 @@ int main()
 
     printf("Doing DMA Stuff! \r\n");
 
-    status = streaming3();
+    status = streaming2();
     if(status != XST_SUCCESS)
     {
         printf("Failed to Capture Frame! \r\n");
